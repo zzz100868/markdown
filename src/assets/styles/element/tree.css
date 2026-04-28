@@ -1,3 +1,5 @@
+/* Element 组件样式：tree 相关样式规则。 */
+
 .el-tree {
   position: relative;
   cursor: default;
@@ -74,7 +76,9 @@
   -webkit-transition: -webkit-transform 0.3s ease-in-out;
   transition: -webkit-transform 0.3s ease-in-out;
   transition: transform 0.3s ease-in-out;
-  transition: transform 0.3s ease-in-out, -webkit-transform 0.3s ease-in-out;
+  transition:
+    transform 0.3s ease-in-out,
+    -webkit-transform 0.3s ease-in-out;
 }
 .el-tree-node__expand-icon.expanded {
   -webkit-transform: rotate(90deg);

@@ -1,3 +1,5 @@
+/* Element 组件样式：form 相关样式规则。 */
+
 .el-form--inline .el-form-item,
 .el-form--inline .el-form-item__content {
   display: inline-block;
@@ -36,7 +38,7 @@
 .el-form-item::after,
 .el-form-item::before {
   display: table;
-  content: '';
+  content: "";
 }
 .el-form-item .el-form-item {
   margin-bottom: 0;
@@ -84,7 +86,7 @@
 .el-form-item__content::after,
 .el-form-item__content::before {
   display: table;
-  content: '';
+  content: "";
 }
 .el-form-item__error {
   color: #f56c6c;
@@ -103,7 +105,7 @@
   margin-left: 10px;
 }
 .el-form-item.is-required .el-form-item__label:before {
-  content: '*';
+  content: "*";
   color: #f56c6c;
   margin-right: 4px;
 }

@@ -1,3 +1,5 @@
+/* Element 组件样式：option-group 相关样式规则。 */
+
 .el-select-group {
   margin: 0;
   padding: 0;
@@ -12,7 +14,7 @@
   padding-bottom: 24px;
 }
 .el-select-group__wrap:not(:last-of-type)::after {
-  content: '';
+  content: "";
   position: absolute;
   display: block;
   left: 20px;

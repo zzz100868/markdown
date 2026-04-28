@@ -1,65 +1,110 @@
 <!-- @format -->
 
+<!-- Sidebar.vue - 侧边栏：文档列表、新建、重命名、删除 -->
+
 <template>
-  <aside class="sidebar" :class="{ collapsed: collapsed }">
+  <!-- aside 是固定在左侧的侧边栏容器，宽度由 collapsed 状态决定 -->
+  <aside
+    class="fixed left-0 z-[100] bg-white flex transition-[width] duration-300 ease-smooth"
+    :class="collapsed ? 'w-11' : 'w-[248px]'"
+    :style="{ top: '56px', height: 'calc(100vh - 56px)' }"
+  >
+    <!-- 收起状态：只显示一个图标按钮，点击后通知父组件展开侧边栏 -->
     <div
       v-show="collapsed"
-      class="sidebar__toggle"
+      class="w-11 min-w-11 h-full flex flex-col items-center justify-center cursor-pointer text-text-tertiary transition-all duration-200 hover:bg-surface-hover hover:text-ink"
       @click="$emit('toggle-sidebar')"
       aria-label="展开侧边栏"
       title="展开文档列表"
     >
-      <icon name="sidebar" class="sidebar__toggle-icon" />
+      <icon name="sidebar" class="w-[18px] h-[18px] opacity-70" />
     </div>
-    <div v-show="!collapsed" class="sidebar__panel">
-      <div class="sidebar__header">
-        <span class="sidebar__title">文档列表</span>
+
+    <!-- 展开状态：展示文档列表、操作按钮和底部新建按钮 -->
+    <div
+      v-show="!collapsed"
+      class="flex-1 min-w-0 flex flex-col overflow-hidden"
+    >
+      <!-- 侧边栏头部：标题 + 收起按钮 -->
+      <div class="px-4 pt-4 pb-2 flex items-center justify-between gap-2">
+        <span class="text-xs font-semibold uppercase tracking-wide-2 text-text-tertiary">
+          文档列表
+        </span>
         <span
-          class="sidebar__header-collapse"
+          class="cursor-pointer text-text-quaternary w-7 h-7 flex items-center justify-center rounded-lg transition-all duration-200 hover:bg-surface-hover hover:text-ink text-xs"
           aria-label="收起侧边栏"
           @click="$emit('toggle-sidebar')"
         >
-          <i class="el-icon-d-arrow-left" />
+          &lt;
         </span>
       </div>
-      <div class="sidebar__list">
+
+      <!-- 文档列表：store.sortedDocuments 已经按更新时间排好序 -->
+      <div class="flex-1 overflow-y-auto px-2 py-1.5">
         <div
-          v-for="doc in documents"
+          v-for="doc in store.sortedDocuments"
           :key="doc.id"
-          class="sidebar__item"
-          :class="{ active: doc.id === activeDocId }"
+          class="group flex items-center px-3 py-[7px] mb-0.5 rounded-lg cursor-pointer transition-all duration-150 ease-snappy relative text-text-secondary"
+          :class="
+            doc.id === activeDocId
+              ? 'bg-surface-active text-ink font-medium'
+              : 'hover:bg-surface-hover hover:text-ink'
+          "
           @click="onSelectDoc(doc.id)"
         >
-          <span v-if="editingId !== doc.id" class="sidebar__item-title" :title="doc.title">
-            {{ doc.title || '未命名文档' }}
+          <!-- 普通展示态：显示文档标题，过长时省略 -->
+          <span
+            v-if="editingId !== doc.id"
+            class="flex-1 min-w-0 overflow-hidden text-ellipsis whitespace-nowrap text-[13px] text-left leading-snug"
+            :title="doc.title"
+          >
+            {{ doc.title || "未命名文档" }}
           </span>
+
+          <!-- 重命名态：把标题文本替换成 input，失焦/回车提交，Esc 取消 -->
           <input
             v-else
             ref="renameInput"
             v-model="editingTitle"
-            class="sidebar__item-input"
+            class="flex-1 min-w-0 px-2 py-[3px] text-[13px] border border-border bg-white rounded-md outline-none focus:ring-1 focus:ring-ink/10"
             @blur="submitRename"
             @keyup.enter="submitRename"
             @keyup.esc="cancelRename"
             @click.stop
           />
-          <span v-if="doc.id === activeDocId && editingId !== doc.id" class="sidebar__item-actions">
-            <span class="sidebar__item-action" aria-label="重命名" @click.stop="startRename(doc)">
-              <i class="el-icon-edit" />
+
+          <!-- 当前文档右侧操作区：hover 时出现重命名和删除按钮 -->
+          <span
+            v-if="doc.id === activeDocId && editingId !== doc.id"
+            class="sidebar-item-actions inline-flex items-center gap-0.5 opacity-0 transition-opacity duration-150"
+            @click.stop
+          >
+            <span
+              class="p-1 text-text-quaternary text-xs rounded flex items-center justify-center transition-all duration-150 hover:bg-white hover:text-ink"
+              aria-label="重命名"
+              @click.stop="startRename(doc)"
+            >
+              ✎
             </span>
             <span
-              class="sidebar__item-action sidebar__item-action--danger"
+              class="p-1 text-text-quaternary text-xs rounded flex items-center justify-center transition-all duration-150 hover:bg-white hover:text-red-600"
               aria-label="删除"
               @click.stop="onDeleteDoc(doc)"
             >
-              <i class="el-icon-delete" />
+              ✕
             </span>
           </span>
         </div>
       </div>
-      <div class="sidebar__footer">
-        <button type="button" class="sidebar__new-btn" @click="onNewDoc">
-          <icon name="add" class="sidebar__new-icon" />
+
+      <!-- 底部新建按钮：创建一篇空文档后交给父组件切换过去 -->
+      <div class="p-3 border-t border-border-subtle">
+        <button
+          type="button"
+          class="w-full flex items-center justify-center gap-1.5 px-3 py-2 text-[13px] font-medium text-ink bg-white border border-border rounded-lg cursor-pointer transition-all duration-200 hover:border-border-strong hover:bg-surface-hover active:translate-y-0 active:bg-surface-active"
+          @click="onNewDoc"
+        >
+          <icon name="add" class="w-3.5 h-3.5" />
           <span>新建文档</span>
         </button>
       </div>
@@ -68,17 +113,14 @@
 </template>
 
 <script>
-import { MessageBox } from 'element-ui'
-import Icon from './Icon'
-import { getDocuments, createDocument, renameDocument, deleteDocument } from '@helper/storage'
-import { trackEvent } from '@helper/analytics'
+import { ElMessageBox } from "element-plus";
+import Icon from "./Icon";
+import { useDocStore } from "@/stores/docStore";
 
 export default {
-  name: 'Sidebar',
+  name: "Sidebar",
 
-  components: {
-    Icon,
-  },
+  components: { Icon },
 
   props: {
     collapsed: {
@@ -91,286 +133,74 @@ export default {
     },
   },
 
-  data() {
-    return {
-      documents: [],
-      editingId: null,
-      editingTitle: '',
-    }
+  setup() {
+    const store = useDocStore();
+    return { store };
   },
 
-  created() {
-    this.refreshDocuments()
+  data() {
+    return {
+      editingId: null,
+      editingTitle: "",
+    };
   },
 
   methods: {
-    refreshDocuments() {
-      this.documents = getDocuments()
-    },
     onSelectDoc(id) {
-      if (this.editingId) return
-      this.$emit('select-doc', id)
-      trackEvent('sidebar_doc_select', 'sidebar', id)
+      if (this.editingId) return;
+      this.$emit("select-doc", id);
     },
-    onNewDoc() {
-      const doc = createDocument('未命名文档')
-      this.refreshDocuments()
-      this.$emit('select-doc', doc.id)
-      trackEvent('sidebar_doc_create', 'sidebar', doc.id)
+
+    async onNewDoc() {
+      try {
+        const doc = await this.store.createDoc("未命名文档");
+        this.$emit("select-doc", doc.id);
+      } catch (e) {
+        console.error("[Sidebar] onNewDoc error", e);
+      }
     },
+
     startRename(doc) {
-      this.editingId = doc.id
-      this.editingTitle = doc.title || '未命名文档'
-      trackEvent('sidebar_doc_rename_start', 'sidebar', doc.id)
+      this.editingId = doc.id;
+      this.editingTitle = doc.title || "未命名文档";
       this.$nextTick(() => {
-        const ref = this.$refs.renameInput
-        const input = Array.isArray(ref) ? ref[0] : ref
-        if (input) input.focus()
-      })
+        const ref = this.$refs.renameInput;
+        const input = Array.isArray(ref) ? ref[0] : ref;
+        if (input) input.focus();
+      });
     },
-    submitRename() {
-      if (this.editingId == null) return
-      const title = String(this.editingTitle || '').trim() || '未命名文档'
-      renameDocument(this.editingId, title)
-      trackEvent('sidebar_doc_rename_submit', 'sidebar', this.editingId)
-      this.refreshDocuments()
-      this.editingId = null
-      this.editingTitle = ''
+
+    async submitRename() {
+      if (this.editingId == null) return;
+      const title = String(this.editingTitle || "").trim() || "未命名文档";
+      await this.store.renameDoc(this.editingId, title);
+      this.editingId = null;
+      this.editingTitle = "";
     },
+
     cancelRename() {
-      trackEvent('sidebar_doc_rename_cancel', 'sidebar', this.editingId)
-      this.editingId = null
-      this.editingTitle = ''
+      this.editingId = null;
+      this.editingTitle = "";
     },
+
     onDeleteDoc(doc) {
-      MessageBox.confirm('确定要删除该文档吗？删除后无法恢复。', '删除文档', {
-        confirmButtonText: '删除',
-        cancelButtonText: '取消',
-        type: 'warning',
+      ElMessageBox.confirm("确定要删除该文档吗？删除后无法恢复。", "删除文档", {
+        confirmButtonText: "删除",
+        cancelButtonText: "取消",
+        type: "warning",
       })
-        .then(() => {
-          deleteDocument(doc.id)
-          this.refreshDocuments()
-          this.$emit('doc-deleted', doc.id)
-          trackEvent('sidebar_doc_delete', 'sidebar', doc.id)
+        .then(async () => {
+          await this.store.deleteDoc(doc.id);
+          this.$emit("doc-deleted", doc.id);
         })
-        .catch(() => {
-          trackEvent('sidebar_doc_delete_cancel', 'sidebar', doc.id)
-        })
+        .catch(() => {});
     },
   },
-}
+};
 </script>
 
-<style lang="less" scoped>
-@import '../assets/styles/style.less';
-
-.sidebar {
-  position: fixed;
-  top: @header-height;
-  left: 0;
-  height: calc(100vh - @header-height);
-  z-index: 100;
-  background-color: @sidebar-bg;
-  border-right: 1px solid @border-grey;
-  display: flex;
-  transition: width 0.2s ease;
-
-  &.collapsed {
-    width: @sidebar-collapsed-width;
-
-    .sidebar__panel {
-      display: none;
-    }
-  }
-
-  &:not(.collapsed) {
-    width: @sidebar-width;
-  }
-
-  .sidebar__toggle {
-    width: @sidebar-collapsed-width;
-    min-width: @sidebar-collapsed-width;
-    height: 100%;
-    .flex-box-center(column);
-    cursor: pointer;
-    color: @icon-grey;
-    transition: all 0.2s ease;
-    border-right: 1px solid transparent;
-
-    &:hover {
-      background-color: @sidebar-item-hover;
-      color: @brand;
-    }
-
-    .sidebar__toggle-icon {
-      width: 20px;
-      height: 20px;
-      opacity: 0.8;
-    }
-  }
-
-  .sidebar__panel {
-    flex: 1;
-    min-width: 0;
-    display: flex;
-    flex-direction: column;
-    overflow: hidden;
-  }
-
-  .sidebar__header {
-    padding: 20px 16px 12px;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 8px;
-
-    .sidebar__title {
-      font-size: 14px;
-      font-weight: 600;
-      text-transform: uppercase;
-      letter-spacing: 0.05em;
-      color: @text-grey;
-    }
-
-    .sidebar__header-collapse {
-      cursor: pointer;
-      color: @icon-grey;
-      padding: 4px;
-      display: flex;
-      align-items: center;
-      border-radius: 4px;
-      transition: all 0.2s ease;
-
-      &:hover {
-        background-color: @sidebar-item-hover;
-        color: @brand;
-      }
-    }
-  }
-
-  .sidebar__list {
-    flex: 1;
-    overflow-y: auto;
-    padding: 8px 12px;
-  }
-
-  .sidebar__item {
-    display: flex;
-    align-items: center;
-    padding: 8px 12px;
-    margin-bottom: 2px;
-    border-radius: 6px;
-    cursor: pointer;
-    transition: all 0.2s ease;
-    position: relative;
-    color: @sidebar-text;
-
-    &:hover {
-      background-color: @sidebar-item-hover;
-      color: @sidebar-text-active;
-    }
-
-    &.active {
-      background-color: @sidebar-item-active-bg;
-      color: @sidebar-text-active;
-      font-weight: 500;
-
-      .sidebar__item-actions {
-        opacity: 1;
-      }
-    }
-
-    .sidebar__item-title {
-      flex: 1;
-      .text-overflow();
-      font-size: 14px;
-      text-align: left;
-    }
-
-    .sidebar__item-input {
-      flex: 1;
-      min-width: 0;
-      padding: 4px 8px;
-      font-size: 14px;
-      border: 1px solid @brand;
-      background: @white;
-      border-radius: 4px;
-      outline: none;
-      box-shadow: 0 0 0 2px rgba(3, 169, 244, 0.1);
-    }
-
-    .sidebar__item-actions {
-      display: inline-flex;
-      align-items: center;
-      gap: 4px;
-      opacity: 0;
-      transition: opacity 0.2s ease;
-
-      .sidebar__item:hover & {
-        opacity: 1;
-      }
-    }
-
-    .sidebar__item-action {
-      padding: 4px;
-      color: @icon-grey;
-      font-size: 14px;
-      border-radius: 4px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      transition: all 0.2s ease;
-
-      &:hover {
-        background-color: @white;
-        color: @brand;
-        box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
-      }
-
-      &--danger:hover {
-        color: @red;
-      }
-    }
-  }
-
-  .sidebar__footer {
-    padding: 16px;
-    border-top: 1px solid @sidebar-border;
-  }
-
-  .sidebar__new-btn {
-    width: 100%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 8px;
-    padding: 10px 12px;
-    font-size: 14px;
-    font-weight: 500;
-    color: @brand;
-    background: @white;
-    border: 1px solid @sidebar-border;
-    border-radius: 8px;
-    cursor: pointer;
-    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
-    transition: all 0.2s ease;
-
-    &:hover {
-      border-color: @brand;
-      background-color: @sidebar-item-hover;
-      transform: translateY(-1px);
-      box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
-    }
-
-    &:active {
-      transform: translateY(0);
-    }
-
-    .sidebar__new-icon {
-      width: 16px;
-      height: 16px;
-    }
-  }
+<style scoped>
+.group:hover .sidebar-item-actions {
+  opacity: 1;
 }
 </style>

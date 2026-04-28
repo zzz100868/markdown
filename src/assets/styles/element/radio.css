@@ -1,3 +1,5 @@
+/* Element 组件样式：radio 相关样式规则。 */
+
 @charset "UTF-8";
 .el-radio,
 .el-radio--medium.is-bordered .el-radio__label {
@@ -133,7 +135,7 @@
   height: 4px;
   border-radius: 100%;
   background-color: #fff;
-  content: '';
+  content: "";
   position: absolute;
   left: 50%;
   top: 50%;
@@ -142,7 +144,9 @@
   -webkit-transition: -webkit-transform 0.15s ease-in;
   transition: -webkit-transform 0.15s ease-in;
   transition: transform 0.15s ease-in;
-  transition: transform 0.15s ease-in, -webkit-transform 0.15s ease-in;
+  transition:
+    transform 0.15s ease-in,
+    -webkit-transform 0.15s ease-in;
 }
 .el-radio__original {
   opacity: 0;

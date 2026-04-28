@@ -1,3 +1,5 @@
+/* Element 组件样式：breadcrumb 相关样式规则。 */
+
 .el-breadcrumb {
   font-size: 14px;
   line-height: 1;
@@ -5,7 +7,7 @@
 .el-breadcrumb::after,
 .el-breadcrumb::before {
   display: table;
-  content: '';
+  content: "";
 }
 .el-breadcrumb::after {
   clear: both;
@@ -15,7 +17,7 @@
   font-weight: 700;
   color: #c0c4cc;
 }
-.el-breadcrumb__separator[class*='icon'] {
+.el-breadcrumb__separator[class*="icon"] {
   margin: 0 6px;
   font-weight: 400;
 }

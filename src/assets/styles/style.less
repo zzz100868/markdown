@@ -1,4 +1,24 @@
+/**
+ * 全局样式入口文件
+ *
+ * 【Less 是什么？】
+ * Less 是一种 CSS 预处理器，让 CSS 更强大：
+ * - 变量：@brand: #6366f1; 然后 color: @brand;
+ * - 嵌套：.parent { .child { ... } }
+ * - 混合（Mixin）：复用一组样式
+ * - 导入：@import 'xxx.less'
+ *
+ * 【这个文件的作用】
+ * 作为所有 Less 样式的入口，导入其他子模块。
+ * 各个 Vue 组件通过 @import './../assets/styles/style.less' 引入这个文件，
+ * 就能使用里面定义的所有变量和混合。
+ */
+
+// 变量定义（颜色、尺寸等）
 @import 'variables.less';
+// ElementPlus 样式覆盖
 @import 'element.less';
+// 混合（Mixin）工具
 @import 'mixins.less';
+// 通用样式
 @import 'common.less';

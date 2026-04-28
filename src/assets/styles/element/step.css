@@ -1,3 +1,5 @@
+/* Element 组件样式：step 相关样式规则。 */
+
 .el-step {
   position: relative;
   -ms-flex-negative: 1;
@@ -83,7 +85,7 @@
   line-height: 1;
   color: inherit;
 }
-.el-step__icon-inner[class*='el-icon']:not(.is-status) {
+.el-step__icon-inner[class*="el-icon"]:not(.is-status) {
   font-size: 25px;
   font-weight: 400;
 }
@@ -224,7 +226,7 @@
   height: 16px;
   font-size: 12px;
 }
-.el-step.is-simple .el-step__icon-inner[class*='el-icon']:not(.is-status) {
+.el-step.is-simple .el-step__icon-inner[class*="el-icon"]:not(.is-status) {
   font-size: 18px;
 }
 .el-step.is-simple .el-step__icon-inner.is-status {
@@ -267,7 +269,7 @@
 }
 .el-step.is-simple .el-step__arrow::after,
 .el-step.is-simple .el-step__arrow::before {
-  content: '';
+  content: "";
   display: inline-block;
   position: absolute;
   height: 15px;

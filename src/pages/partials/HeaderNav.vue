@@ -1,6 +1,10 @@
+<!-- 顶部导航组件：提供页面跳转和常用操作入口。 -->
+
 <template>
+  <!-- header-wrapper 固定在页面顶部，所有主页面和导出页面共用这套导航 -->
   <header class="header-wrapper">
     <h1 class="header-area">
+      <!-- 左侧品牌区域：点击回到首页 -->
       <a href="/" class="header-link" target="_self">
         <img
           class="mark-markdown"
@@ -9,100 +13,77 @@
         />
         <strong v-if="!isMobile" class="header-text">{{ titleText }}</strong>
       </a>
+
+      <!-- 右侧按钮组：文档列表、关于页、导入、导出设置、全屏 -->
       <nav class="button-group">
-        <a
-          v-if="!isMobile"
-          href="https://wechat.jeffjade.com/"
-          class="header-link"
-          target="_blank"
-          rel="noopener"
+        <!-- 移动端才显示的侧边栏按钮，桌面端侧边栏自己有收起入口 -->
+        <span
+          v-if="isMobile"
+          class="hint--bottom action-btn"
+          @click="$emit('toggle-sidebar')"
+          aria-label="文档列表"
         >
-          <span class="hint--bottom" aria-label="公众号 Markdown 排版">
-            <icon class="header-icon" name="wechat" />
-          </span>
-        </a>
-        <a href="https://www.niceshare.site/" class="header-link" target="_blank" rel="noopener">
-          <span class="hint--bottom" aria-label="逍遥自在轩">
-            <icon class="header-icon" name="homepage" />
-          </span>
-        </a>
-        <a href="https://www.lovejade.cn/" class="header-link" target="_blank" rel="noopener">
-          <span class="hint--bottom" aria-label="清风明月轩">
-            <icon class="header-icon" name="home" />
-          </span>
-        </a>
-        <a
-          v-if="!isMobile"
-          href="https://x.com/MarshalXuan"
-          class="header-link"
-          target="_blank"
-          rel="noopener"
-        >
-          <span class="hint--bottom" aria-label="X - 轩帅">
-            <icon class="header-icon" name="x" />
-          </span>
-        </a>
-        <a
-          v-if="!isMobile"
-          href="https://github.com/nicejade"
-          class="header-link"
-          target="_blank"
-          rel="noopener"
-        >
-          <span class="hint--bottom" aria-label="作者 Github">
-            <icon class="header-icon" name="github" />
-          </span>
-        </a>
+          <icon class="header-icon" name="sidebar" />
+        </span>
+
+        <!-- 关于页面入口 -->
         <router-link to="/about-arya" class="header-link">
           <span class="hint--bottom" aria-label="关于 Arya">
             <icon class="header-icon" name="document" />
           </span>
         </router-link>
-        <span class="hint--bottom" @click="onImportClick" aria-label="导入文件">
+
+        <!-- 导入本地 Markdown 文件 -->
+        <span
+          class="hint--bottom action-btn"
+          @click="onImportClick"
+          aria-label="导入文件"
+        >
           <icon class="header-icon" name="upload" />
         </span>
+
+        <!-- 设置/导出下拉菜单：command 值就是要跳转的路由 -->
         <el-dropdown trigger="click" @command="handleCommand">
-          <span class="hint--bottom el-dropdown-link" aria-label="设置">
+          <span
+            class="hint--bottom el-dropdown-link action-btn"
+            aria-label="设置"
+          >
             <icon class="header-icon" name="setting" />
           </span>
-          <el-dropdown-menu slot="dropdown">
-            <el-dropdown-item disabled>
-              <icon class="dropdown-icon" name="set-style" />
-              <a href="/export/jpeg" target="_self" class="dropdown-text">自定义样式</a>
-            </el-dropdown-item>
-            <el-dropdown-item command="/export/ppt" divided>
-              <icon class="dropdown-icon" name="preview" />
-              <a href="/export/ppt" target="_self" class="dropdown-text">
-                {{ exportTextMap['/export/ppt'] }}
-              </a>
-            </el-dropdown-item>
-            <el-dropdown-item command="/export/png" divided>
-              <icon class="dropdown-icon" name="download" />
-              <a href="/export/png" target="_self" class="dropdown-text">{{
-                exportTextMap['/export/png']
-              }}</a>
-            </el-dropdown-item>
-            <el-dropdown-item command="/export/pdf">
-              <icon class="dropdown-icon" name="download" />
-              <a href="/export/pdf" target="_self" class="dropdown-text">
-                {{ exportTextMap['/export/pdf'] }}
-              </a>
-            </el-dropdown-item>
-            <el-dropdown-item command="/export/docx">
-              <icon class="dropdown-icon" name="download" />
-              <a href="/export/docx" target="_self" class="dropdown-text">
-                {{ exportTextMap['/export/docx'] }}
-              </a>
-            </el-dropdown-item>
-            <el-dropdown-item command="/export/html" disabled divided>
-              <icon class="dropdown-icon" name="download" />
-              <a href="/export/html" target="_self" class="dropdown-text">导出 HTML</a>
-            </el-dropdown-item>
-          </el-dropdown-menu>
+          <template #dropdown>
+            <el-dropdown-menu>
+              <el-dropdown-item disabled>
+                <icon class="dropdown-icon" name="set-style" />
+                <span class="dropdown-text">自定义样式</span>
+              </el-dropdown-item>
+              <el-dropdown-item command="/export/ppt" divided>
+                <icon class="dropdown-icon" name="preview" />
+                <span class="dropdown-text">{{ exportTextMap["/export/ppt"] }}</span>
+              </el-dropdown-item>
+              <el-dropdown-item command="/export/png" divided>
+                <icon class="dropdown-icon" name="download" />
+                <span class="dropdown-text">{{ exportTextMap["/export/png"] }}</span>
+              </el-dropdown-item>
+              <el-dropdown-item command="/export/pdf">
+                <icon class="dropdown-icon" name="download" />
+                <span class="dropdown-text">{{ exportTextMap["/export/pdf"] }}</span>
+              </el-dropdown-item>
+              <el-dropdown-item command="/export/docx">
+                <icon class="dropdown-icon" name="download" />
+                <span class="dropdown-text">{{ exportTextMap["/export/docx"] }}</span>
+              </el-dropdown-item>
+              <el-dropdown-item command="/export/html" divided>
+                <icon class="dropdown-icon" name="download" />
+                <span class="dropdown-text">{{ exportTextMap["/export/html"] }}</span>
+              </el-dropdown-item>
+            </el-dropdown-menu>
+          </template>
         </el-dropdown>
+
+        <!-- 桌面端全屏按钮：移动端浏览器全屏体验不稳定，所以隐藏 -->
         <span
           v-if="!isMobile"
-          class="hint--bottom full-screen"
+          class="hint--bottom full-screen action-btn"
           @click="onFullScreenClick"
           aria-label="全屏"
         >
@@ -114,96 +95,117 @@
 </template>
 
 <script>
-import 'hint.css'
-import { exportTextMap } from '@config/constant'
-import { createDocument, setActiveDocId, saveDocContent } from '@helper/storage'
-import { trackEvent } from '@helper/analytics'
+import "hint.css";
+import { exportTextMap } from "@config/constant";
+import { useDocStore } from "@/stores/docStore";
 
 export default {
-  name: 'HeaderNav',
+  name: "HeaderNav",
+
+  setup() {
+    const store = useDocStore();
+    return { store };
+  },
 
   data() {
     return {
       isMobile: window.innerWidth <= 768,
       titleText: window.$appTitle,
       exportTextMap,
-    }
+    };
+  },
+
+  mounted() {
+    window.addEventListener("resize", this.onResize);
+  },
+
+  beforeUnmount() {
+    window.removeEventListener("resize", this.onResize);
   },
 
   methods: {
+    onResize() {
+      this.isMobile = window.innerWidth <= 768;
+    },
+
     launchFullScreen() {
-      const element = document.getElementById('vditor')
+      const element = document.getElementById("vditor") || document.documentElement;
+      if (!element) return;
       if (element.requestFullscreen) {
-        element.requestFullscreen()
+        element.requestFullscreen();
       } else if (element.msRequestFullscreen) {
-        element.msRequestFullscreen()
+        element.msRequestFullscreen();
       } else if (element.mozRequestFullScreen) {
-        element.mozRequestFullScreen()
+        element.mozRequestFullScreen();
       } else if (element.webkitRequestFullscreen) {
-        element.webkitRequestFullscreen(Element.ALLOW_KEYBOARD_INPUT)
+        element.webkitRequestFullscreen(Element.ALLOW_KEYBOARD_INPUT);
       }
     },
+
     cancelFullScreen() {
       if (document.exitFullscreen) {
-        document.exitFullscreen()
+        document.exitFullscreen();
       } else if (document.msExitFullscreen) {
-        document.msExitFullscreen()
+        document.msExitFullscreen();
       } else if (document.mozCancelFullScreen) {
-        document.mozCancelFullScreen()
+        document.mozCancelFullScreen();
       } else if (document.webkitExitFullscreen) {
-        document.webkitExitFullscreen()
+        document.webkitExitFullscreen();
       }
     },
+
     onThemeClick() {},
+
     onFullScreenClick() {
       const isFullScreen =
         document.fullscreenElement ||
         document.mozFullScreenElement ||
         document.msFullscreenElement ||
-        document.webkitFullscreenElement
-      isFullScreen ? this.cancelFullScreen() : this.launchFullScreen()
-      trackEvent('header_full_screen', 'header', isFullScreen ? 'exit' : 'enter')
+        document.webkitFullscreenElement;
+      isFullScreen ? this.cancelFullScreen() : this.launchFullScreen();
     },
+
     handleCommand(command) {
-      this.$router.push(command)
-      trackEvent('header_export', 'header', command)
+      this.$router.push(command);
     },
+
     onImportClick() {
-      trackEvent('header_import_click', 'header')
-      const input = document.createElement('input')
-      input.type = 'file'
-      input.accept = '.md,.markdown,text/markdown'
+      const input = document.createElement("input");
+      input.type = "file";
+      input.accept = ".md,.markdown,text/markdown";
       input.onchange = (e) => {
-        const file = e.target.files[0]
+        const file = e.target.files[0];
         if (file) {
-          const reader = new FileReader()
-          reader.onload = (e) => {
-            const content = e.target.result
-            const title = (file.name || '').replace(/\.(md|markdown)$/i, '') || '导入的文档'
-            const doc = createDocument(title)
-            saveDocContent(doc.id, content)
-            setActiveDocId(doc.id)
-            this.$root.$emit('reload-content')
-            trackEvent('header_import_success', 'header', title)
-          }
-          reader.readAsText(file)
+          const reader = new FileReader();
+          reader.onload = async (e) => {
+            const content = e.target.result;
+            const title = (file.name || "").replace(/\.(md|markdown)$/i, "") || "导入的文档";
+            const doc = await this.store.createDoc(title);
+            await this.store.selectDoc(doc.id);
+            await this.store.saveContent(content);
+            this.$eventBus.emit("reload-content");
+          };
+          reader.readAsText(file);
         }
-      }
-      input.click()
+      };
+      input.click();
     },
   },
-}
+};
 </script>
 
 <style lang="less">
-@import './../../assets/styles/style.less';
+@import "./../../assets/styles/style.less";
 
-[class*='hint--']:after {
-  border-radius: 3px;
+[class*="hint--"]:after {
+  border-radius: 4px;
+  font-size: 12px;
+  letter-spacing: 0.02em;
+  padding: 6px 10px;
 }
 
-.el-popper[x-placement^='bottom'] {
-  margin-top: 10px;
+.el-popper[x-placement^="bottom"] {
+  margin-top: 8px;
 }
 
 .el-dropdown .el-dropdown-link {
@@ -218,15 +220,40 @@ export default {
 
 .el-dropdown-menu {
   margin: 0;
+  border-radius: 8px;
+  box-shadow: 0 12px 32px -8px rgba(0, 0, 0, 0.12), 0 4px 8px -2px rgba(0, 0, 0, 0.04);
+  border: 1px solid @border-subtle;
+  padding: 6px;
 
   .dropdown-icon {
-    fill: @deep-black;
+    fill: @text-secondary;
     vertical-align: middle;
     margin-right: 10px;
   }
 
   .dropdown-text {
     vertical-align: middle;
+    font-size: 14px;
+    color: @text-secondary;
+  }
+
+  .el-dropdown-menu__item {
+    border-radius: 6px;
+    padding: 8px 12px;
+    line-height: 1.4;
+    transition: background-color 0.15s ease;
+
+    &:hover {
+      background-color: @bg-hover;
+    }
+  }
+
+  .el-dropdown-menu__item.is-disabled {
+    color: @text-quaternary;
+
+    .dropdown-icon {
+      fill: @text-quaternary;
+    }
   }
 }
 
@@ -237,49 +264,72 @@ export default {
   height: @header-height;
   line-height: @header-height;
   z-index: @hint-css-zindex;
-  background-color: #fff;
-  box-shadow: 0 0 12px 2px rgba(0, 0, 0, 0.1);
-  transition: border 0.5s cubic-bezier(0.455, 0.03, 0.515, 0.955),
-    background 0.5s cubic-bezier(0.455, 0.03, 0.515, 0.955);
+  background-color: rgba(255, 255, 255, 0.92);
+  backdrop-filter: saturate(180%) blur(12px);
+  -webkit-backdrop-filter: saturate(180%) blur(12px);
+  border-bottom: 1px solid @border-subtle;
+  transition: border 0.3s ease, background 0.3s ease;
 
   .header-area {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
     width: 100%;
     height: 100%;
-    padding: 0 2rem;
+    padding: 0 1.5rem;
     max-width: @max-body-width;
     margin: auto;
     text-align: left;
 
     .header-link {
       display: inline-flex;
+      align-items: center;
       height: @header-height;
       line-height: @header-height;
 
       .mark-markdown {
-        width: @header-height;
+        width: 36px;
+        height: 36px;
         vertical-align: middle;
       }
 
       .header-text {
         margin-left: 10px;
         font-size: @font-medium;
-        color: transparent;
-        background-clip: text;
-        background-image: linear-gradient(to right, #000000, #434343);
+        font-weight: 600;
+        color: @text-primary;
+        letter-spacing: -0.01em;
         vertical-align: middle;
       }
     }
 
     .button-group {
-      float: right;
+      display: flex;
+      align-items: center;
+      gap: 2px;
 
       .header-icon {
-        margin: 0 10px;
-        fill: @deep-black;
+        fill: @text-secondary;
+        width: 18px;
+        height: 18px;
       }
 
-      .full-screen {
-        margin-right: -10px;
+      .action-btn {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        width: 34px;
+        height: 34px;
+        border-radius: 8px;
+        transition: background-color 0.15s ease, transform 0.1s ease;
+
+        &:hover {
+          background-color: @bg-hover;
+        }
+
+        &:active {
+          transform: scale(0.96);
+        }
       }
     }
   }
@@ -290,7 +340,7 @@ export default {
     .header-area {
       display: flex;
       width: 100%;
-      padding: 0 10px;
+      padding: 0 12px;
       .flex-box-center(row, space-between);
 
       .header-link {

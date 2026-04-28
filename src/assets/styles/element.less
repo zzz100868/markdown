@@ -1,13 +1,67 @@
+/**
+ * ElementPlus 样式覆盖
+ *
+ * 将 ElementPlus 的默认蓝紫色调调整为高级灰白体系。
+ */
+
+/* ElementPlus 消息提示的层级 */
 .el-message {
   z-index: @el-message-zindex !important;
 }
+
+/* 下拉菜单项中的链接颜色 */
 .el-dropdown-menu__item {
   a {
-    color: #606266;
+    color: @text-secondary;
   }
 }
+
+/* 禁用的下拉菜单项中的链接颜色 */
 .el-dropdown-menu__item.is-disabled {
   a {
-    color: #bbbbbb;
+    color: @text-quaternary;
   }
+}
+
+/* Element Plus 按钮 —— 去除蓝紫色 */
+.el-button--primary {
+  background-color: @accent;
+  border-color: @accent;
+}
+
+.el-button--primary:hover,
+.el-button--primary:focus {
+  background-color: @accent-light;
+  border-color: @accent-light;
+}
+
+.el-button--primary.is-plain {
+  color: @accent;
+  background-color: @bg-surface;
+  border-color: @border;
+}
+
+.el-button--primary.is-plain:hover,
+.el-button--primary.is-plain:focus {
+  color: @accent;
+  background-color: @accent-subtle;
+  border-color: @border-strong;
+}
+
+/* Element Plus 弹窗 —— 更克制的圆角与阴影 */
+.el-dialog {
+  border-radius: 0.75rem;
+  box-shadow: 0 12px 32px -8px rgba(0, 0, 0, 0.12), 0 4px 8px -2px rgba(0, 0, 0, 0.04);
+}
+
+/* Element Plus MessageBox */
+.el-message-box {
+  border-radius: 0.75rem;
+  box-shadow: 0 12px 32px -8px rgba(0, 0, 0, 0.12), 0 4px 8px -2px rgba(0, 0, 0, 0.04);
+}
+
+/* Element Plus Loading 遮罩 —— 更淡 */
+.el-loading-mask {
+  background-color: rgba(255, 255, 255, 0.7);
+  backdrop-filter: blur(2px);
 }

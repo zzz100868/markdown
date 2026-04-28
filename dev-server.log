@@ -1,0 +1,17 @@
+
+> markdown-online-editor@4.0.0 prestart
+> node -e "import('fs').then(({cpSync,mkdirSync,rmSync,existsSync})=>{mkdirSync('public/vendor',{recursive:true});cpSync('node_modules/@turbodocx/html-to-docx/dist/html-to-docx.browser.js','public/vendor/html-to-docx.browser.js');if(existsSync('public/vditor'))rmSync('public/vditor',{recursive:true});mkdirSync('public/vditor/dist',{recursive:true});cpSync('node_modules/vditor/dist','public/vditor/dist',{recursive:true})})"
+
+
+> markdown-online-editor@4.0.0 start
+> npm run prestart && vite
+
+
+> markdown-online-editor@4.0.0 prestart
+> node -e "import('fs').then(({cpSync,mkdirSync,rmSync,existsSync})=>{mkdirSync('public/vendor',{recursive:true});cpSync('node_modules/@turbodocx/html-to-docx/dist/html-to-docx.browser.js','public/vendor/html-to-docx.browser.js');if(existsSync('public/vditor'))rmSync('public/vditor',{recursive:true});mkdirSync('public/vditor/dist',{recursive:true});cpSync('node_modules/vditor/dist','public/vditor/dist',{recursive:true})})"
+
+
+  VITE v6.4.2  ready in 522 ms
+
+  ➜  Local:   http://localhost:8080/
+  ➜  Network: http://10.27.6.150:8080/

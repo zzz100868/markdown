@@ -1,3 +1,5 @@
+/* Element 组件样式：input 相关样式规则。 */
+
 .el-textarea {
   display: inline-block;
   width: 100%;
@@ -157,7 +159,7 @@
   line-height: 40px;
 }
 .el-input__icon:after {
-  content: '';
+  content: "";
   height: 100%;
   width: 0;
   display: inline-block;

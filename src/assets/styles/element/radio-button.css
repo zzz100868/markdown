@@ -1,3 +1,5 @@
+/* Element 组件样式：radio-button 相关样式规则。 */
+
 @charset "UTF-8";
 .el-radio-button,
 .el-radio-button__inner {
@@ -32,10 +34,10 @@
 .el-radio-button__inner:hover {
   color: #000000;
 }
-.el-radio-button__inner [class*='el-icon-'] {
+.el-radio-button__inner [class*="el-icon-"] {
   line-height: 0.9;
 }
-.el-radio-button__inner [class*='el-icon-'] + span {
+.el-radio-button__inner [class*="el-icon-"] + span {
   margin-left: 5px;
 }
 .el-radio-button:first-child .el-radio-button__inner {

@@ -1,3 +1,5 @@
+/* Element 组件样式：progress 相关样式规则。 */
+
 .el-progress {
   position: relative;
   line-height: 1;
@@ -88,7 +90,7 @@
   white-space: nowrap;
 }
 .el-progress-bar__inner::after {
-  content: '';
+  content: "";
   height: 100%;
 }
 .el-progress-bar__innerText {

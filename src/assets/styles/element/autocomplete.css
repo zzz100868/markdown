@@ -1,3 +1,5 @@
+/* Element 组件样式：autocomplete 相关样式规则。 */
+
 .el-textarea {
   display: inline-block;
   width: 100%;
@@ -157,7 +159,7 @@
   line-height: 40px;
 }
 .el-input__icon:after {
-  content: '';
+  content: "";
   height: 100%;
   width: 0;
   display: inline-block;
@@ -369,68 +371,68 @@
   filter: drop-shadow(0 2px 12px rgba(0, 0, 0, 0.03));
 }
 .el-popper .popper__arrow::after {
-  content: ' ';
+  content: " ";
   border-width: 6px;
 }
-.el-popper[x-placement^='top'] {
+.el-popper[x-placement^="top"] {
   margin-bottom: 12px;
 }
-.el-popper[x-placement^='top'] .popper__arrow {
+.el-popper[x-placement^="top"] .popper__arrow {
   bottom: -6px;
   left: 50%;
   margin-right: 3px;
   border-top-color: #ebeef5;
   border-bottom-width: 0;
 }
-.el-popper[x-placement^='top'] .popper__arrow::after {
+.el-popper[x-placement^="top"] .popper__arrow::after {
   bottom: 1px;
   margin-left: -6px;
   border-top-color: #fff;
   border-bottom-width: 0;
 }
-.el-popper[x-placement^='bottom'] {
+.el-popper[x-placement^="bottom"] {
   margin-top: 12px;
 }
-.el-popper[x-placement^='bottom'] .popper__arrow {
+.el-popper[x-placement^="bottom"] .popper__arrow {
   top: -6px;
   left: 50%;
   margin-right: 3px;
   border-top-width: 0;
   border-bottom-color: #ebeef5;
 }
-.el-popper[x-placement^='bottom'] .popper__arrow::after {
+.el-popper[x-placement^="bottom"] .popper__arrow::after {
   top: 1px;
   margin-left: -6px;
   border-top-width: 0;
   border-bottom-color: #fff;
 }
-.el-popper[x-placement^='right'] {
+.el-popper[x-placement^="right"] {
   margin-left: 12px;
 }
-.el-popper[x-placement^='right'] .popper__arrow {
+.el-popper[x-placement^="right"] .popper__arrow {
   top: 50%;
   left: -6px;
   margin-bottom: 3px;
   border-right-color: #ebeef5;
   border-left-width: 0;
 }
-.el-popper[x-placement^='right'] .popper__arrow::after {
+.el-popper[x-placement^="right"] .popper__arrow::after {
   bottom: -6px;
   left: 1px;
   border-right-color: #fff;
   border-left-width: 0;
 }
-.el-popper[x-placement^='left'] {
+.el-popper[x-placement^="left"] {
   margin-right: 12px;
 }
-.el-popper[x-placement^='left'] .popper__arrow {
+.el-popper[x-placement^="left"] .popper__arrow {
   top: 50%;
   right: -6px;
   margin-bottom: 3px;
   border-right-width: 0;
   border-left-color: #ebeef5;
 }
-.el-popper[x-placement^='left'] .popper__arrow::after {
+.el-popper[x-placement^="left"] .popper__arrow::after {
   right: 1px;
   bottom: -6px;
   margin-left: -6px;
@@ -493,7 +495,7 @@
 }
 .el-autocomplete-suggestion.is-loading li::after {
   display: inline-block;
-  content: '';
+  content: "";
   height: 100%;
   vertical-align: middle;
 }

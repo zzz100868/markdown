@@ -1,3 +1,5 @@
+/* Element 组件样式：dialog 相关样式规则。 */
+
 .v-modal-enter {
   -webkit-animation: v-modal-in 0.2s ease;
   animation: v-modal-in 0.2s ease;

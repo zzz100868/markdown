@@ -1,40 +1,69 @@
+/**
+ * Less 变量定义文件
+ *
+ * 采用高级灰白设计体系：
+ * - 以极深的炭灰替代传统的蓝灰/紫灰，去 AI 味
+ * - 以极其克制的阴影与边框建立层次
+ * - 圆角、间距均收敛，避免过度圆润的"塑料感"
+ */
+
+// 尺寸基准
 @size-factor: 0.5rem;
 
-@brand: #03a9f4;
+// ==================== 强调色（极度克制）====================
+@accent: #171717;              // 深炭灰 —— 承担传统"品牌色"的角色
+@accent-light: #404040;        // 浅一阶炭灰
+@accent-subtle: #f5f5f5;       // 极浅灰背景
 
-@bg-grey: #fafcff;
-@input-grey: #f2f4f7;
-@text-grey: #6a8bad;
-@icon-grey: #707780;
+// ==================== 背景色 ====================
+@bg-page: #fafafa;             // 页面底色（极浅灰白）
+@bg-surface: #ffffff;          // 卡片/面板纯白
+@bg-hover: #f5f5f5;            // 悬停背景
+@bg-active: #eeeeee;           // 激活/按下背景
+@bg-input: #fafafa;            // 输入框背景
 
-@border-grey: #d7dce5;
-@border-black: #7a8ba9;
+// ==================== 文字色 ====================
+@text-primary: #171717;        // 主文字
+@text-secondary: #525252;      // 次要文字
+@text-tertiary: #737373;       // 辅助文字
+@text-quaternary: #a3a3a3;     // 占位/禁用文字
 
-@deep-black: #1a2a3a;
-@black: #2a3a4a;
-@liht-black: #3a4a5a;
+// ==================== 边框色 ====================
+@border: #e5e5e5;              // 常规边框
+@border-subtle: #f0f0f0;       // 极浅分隔线
+@border-strong: #d4d4d4;       // 强调边框
+
+// ==================== 基础色 ====================
+@deep-black: #171717;
+@black: #262626;
+@light-black: #404040;
 
 @white: #ffffff;
-@red: #fa0101;
-@grey: #e8ebf1;
-@orange: #6b5900;
-@yellow: #ffe564;
+@red: #dc2626;                 // 更克制的红
+@grey: #f5f5f5;
+@orange: #ea580c;
+@yellow: #ca8a04;
 
-@font-large: 2.1rem;
-@font-medium: 1.3rem;
-@font-small: 1rem;
+// ==================== 字体大小 ====================
+@font-large: 1.75rem;
+@font-medium: 1.125rem;
+@font-small: 0.9375rem;
+@font-xs: 0.8125rem;
 
-@header-height: 60px;
+// ==================== 布局尺寸 ====================
+@header-height: 56px;
 @max-body-width: 1560px;
 
+// ==================== 层级 ====================
 @el-message-zindex: 10000;
 @hint-css-zindex: 9999;
 
-@sidebar-width: 260px;
-@sidebar-collapsed-width: 48px;
-@sidebar-bg: #f8fafc;
-@sidebar-item-hover: #f1f5f9;
-@sidebar-item-active-bg: #e2e8f0;
-@sidebar-border: #e2e8f0;
-@sidebar-text: #475569;
-@sidebar-text-active: #0f172a;
+// ==================== 侧边栏 ====================
+@sidebar-width: 248px;
+@sidebar-collapsed-width: 44px;
+@sidebar-bg: #ffffff;
+@sidebar-item-hover: #f5f5f5;
+@sidebar-item-active-bg: #eeeeee;
+@sidebar-border: #e5e5e5;
+@sidebar-text: #525252;
+@sidebar-text-active: #171717;

@@ -1,11 +1,8 @@
 /** @format */
 
-const files = require.context('.', true, /\.js$/)
+// routes/index.js 是业务路由聚合入口。
+// 将拆分出去的路由模块统一导出，方便 router/index.js 一次性加载。
 
-var configArray = []
+import mainRoutes from "./main";
 
-files.keys().forEach(key => {
-  if (key === './index.js') return
-  configArray = configArray.concat(files(key).default)
-})
-export default configArray
+export default mainRoutes;

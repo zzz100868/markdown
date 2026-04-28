@@ -1,3 +1,5 @@
+/* Element 组件样式：transfer 相关样式规则。 */
+
 @charset "UTF-8";
 .el-button,
 .el-checkbox {
@@ -168,7 +170,7 @@
   line-height: 40px;
 }
 .el-input__icon:after {
-  content: '';
+  content: "";
   height: 100%;
   width: 0;
   display: inline-block;
@@ -345,7 +347,7 @@
 .el-button::-moz-focus-inner {
   border: 0;
 }
-.el-button [class*='el-icon-'] + span {
+.el-button [class*="el-icon-"] + span {
   margin-left: 5px;
 }
 .el-button.is-plain:focus,
@@ -388,7 +390,7 @@
 }
 .el-button.is-loading:before {
   pointer-events: none;
-  content: '';
+  content: "";
   position: absolute;
   left: -1px;
   top: -1px;
@@ -730,7 +732,7 @@
 .el-button-group::after,
 .el-button-group::before {
   display: table;
-  content: '';
+  content: "";
 }
 .el-checkbox,
 .el-checkbox__input {
@@ -948,7 +950,7 @@
   border-color: #000000;
 }
 .el-checkbox__input.is-indeterminate .el-checkbox__inner::before {
-  content: '';
+  content: "";
   position: absolute;
   display: block;
   background-color: #fff;
@@ -973,9 +975,11 @@
   height: 14px;
   background-color: #fff;
   z-index: 1;
-  -webkit-transition: border-color 0.25s cubic-bezier(0.71, -0.46, 0.29, 1.46),
+  -webkit-transition:
+    border-color 0.25s cubic-bezier(0.71, -0.46, 0.29, 1.46),
     background-color 0.25s cubic-bezier(0.71, -0.46, 0.29, 1.46);
-  transition: border-color 0.25s cubic-bezier(0.71, -0.46, 0.29, 1.46),
+  transition:
+    border-color 0.25s cubic-bezier(0.71, -0.46, 0.29, 1.46),
     background-color 0.25s cubic-bezier(0.71, -0.46, 0.29, 1.46);
 }
 .el-checkbox__inner:hover {
@@ -984,7 +988,7 @@
 .el-checkbox__inner::after {
   -webkit-box-sizing: content-box;
   box-sizing: content-box;
-  content: '';
+  content: "";
   border: 1px solid #fff;
   border-left: 0;
   border-top: 0;
@@ -998,7 +1002,9 @@
   -webkit-transition: -webkit-transform 0.15s ease-in 0.05s;
   transition: -webkit-transform 0.15s ease-in 0.05s;
   transition: transform 0.15s ease-in 0.05s;
-  transition: transform 0.15s ease-in 0.05s, -webkit-transform 0.15s ease-in 0.05s;
+  transition:
+    transform 0.15s ease-in 0.05s,
+    -webkit-transform 0.15s ease-in 0.05s;
   -webkit-transform-origin: center;
   transform-origin: center;
 }
@@ -1057,10 +1063,10 @@
 .el-checkbox-button__inner:hover {
   color: #000000;
 }
-.el-checkbox-button__inner [class*='el-icon-'] {
+.el-checkbox-button__inner [class*="el-icon-"] {
   line-height: 0.9;
 }
-.el-checkbox-button__inner [class*='el-icon-'] + span {
+.el-checkbox-button__inner [class*="el-icon-"] + span {
   margin-left: 5px;
 }
 .el-checkbox-button__original {
@@ -1149,7 +1155,7 @@
   font-size: 0;
 }
 .el-transfer-panel__item + .el-transfer-panel__item,
-.el-transfer__button [class*='el-icon-'] + span {
+.el-transfer__button [class*="el-icon-"] + span {
   margin-left: 0;
 }
 .el-transfer__button.is-with-texts {
@@ -1273,7 +1279,11 @@
   color: #303133;
   font-weight: 400;
 }
-.el-transfer-panel .el-transfer-panel__header .el-checkbox .el-checkbox__label span {
+.el-transfer-panel
+  .el-transfer-panel__header
+  .el-checkbox
+  .el-checkbox__label
+  span {
   position: absolute;
   right: 15px;
   color: #909399;
@@ -1294,7 +1304,7 @@
 }
 .el-transfer-panel .el-transfer-panel__footer::after {
   display: inline-block;
-  content: '';
+  content: "";
   height: 100%;
   vertical-align: middle;
 }

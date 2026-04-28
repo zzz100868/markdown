@@ -1,3 +1,5 @@
+/* Element 组件样式：row 相关样式规则。 */
+
 .el-row {
   position: relative;
   -webkit-box-sizing: border-box;
@@ -6,7 +8,7 @@
 .el-row::after,
 .el-row::before {
   display: table;
-  content: '';
+  content: "";
 }
 .el-row::after {
   clear: both;

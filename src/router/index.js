@@ -1,28 +1,17 @@
 /** @format */
 
-import Vue from 'vue'
-import Router from 'vue-router'
-import beforeEachHooks from './beforeEachHooks'
-import RoutesMapConfig from './routes'
-import commonRoutesMap from './commonRoutes'
+// router/index.js 是路由系统入口。
+// 这里创建 Vue Router 实例，并把业务路由、公共路由组装到一起。
 
-Vue.use(Router)
+import { createRouter, createWebHistory } from "vue-router";
+import RoutesMapConfig from "./routes";
+import commonRoutesMap from "./commonRoutes";
 
-const routerInstance = new Router({
-  mode: 'history',
-  /* ~~~~~~~~~~~~~~~~~~~~~~~~@CHANGE@~~~~~~~~~~~~~~~~~~~~~~~~ */
-  /*
-    @desc: base,应用的基路径;如整个单页应用服务在 /app/ 下，base 就应该设为 "/app/";
-    @reference: https://router.vuejs.org/zh-cn/api/options.html#base
-  */
-  base: '/',
-  linkActiveClass: 'active',
-  scrollBehavior: () => ({ y: 0 }),
-  routes: RoutesMapConfig.concat(commonRoutesMap)
-})
+const routerInstance = createRouter({
+  history: createWebHistory("/"),
+  linkActiveClass: "active",
+  scrollBehavior: () => ({ top: 0 }),
+  routes: RoutesMapConfig.concat(commonRoutesMap),
+});
 
-Object.values(beforeEachHooks).forEach(hook => {
-  routerInstance.beforeEach(hook)
-})
-
-export default routerInstance
+export default routerInstance;

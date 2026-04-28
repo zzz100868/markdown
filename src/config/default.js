@@ -1,53 +1,77 @@
 /** @format */
 
+/**
+ * 默认文档内容配置
+ *
+ * 【这个文件的作用】
+ * 定义新用户首次打开编辑器时看到的默认文档内容。
+ * 这是一篇 Markdown 格式的介绍文章，展示了编辑器的各种功能。
+ *
+ * 【模板字符串（``）】
+ * 用反引号包裹的字符串可以跨多行书写，
+ * 里面还可以用 ${变量} 插入变量值，非常方便写长文本。
+ */
+
+// Echarts 图表配置对象
 const echartsConf = {
-  backgroundColor: '#212121',
+  backgroundColor: "#212121",
   title: {
-    text: '「晚晴幽草轩」访问来源',
-    subtext: '2019 年 6 月份',
-    x: 'center',
+    text: "「晚晴幽草轩」访问来源",
+    subtext: "2019 年 6 月份",
+    x: "center",
     textStyle: {
-      color: '#f2f2f2',
+      color: "#f2f2f2",
     },
   },
   tooltip: {
-    trigger: 'item',
-    formatter: '{a} <br/>{b} : {c} ({d}%)',
+    trigger: "item",
+    formatter: "{a} <br/>{b} : {c} ({d}%)",
   },
   legend: {
-    orient: 'vertical',
-    left: 'left',
-    data: ['搜索引擎', '直接访问', '推荐', '其他', '社交平台'],
+    orient: "vertical",
+    left: "left",
+    data: ["搜索引擎", "直接访问", "推荐", "其他", "社交平台"],
     textStyle: {
-      color: '#f2f2f2',
+      color: "#f2f2f2",
     },
   },
   series: [
     {
-      name: '访问来源',
-      type: 'pie',
-      radius: '55%',
-      center: ['50%', '60%'],
+      name: "访问来源",
+      type: "pie",
+      radius: "55%",
+      center: ["50%", "60%"],
       data: [
-        { value: 10440, name: '搜索引擎', itemStyle: { color: '#ef4136' } },
-        { value: 4770, name: '直接访问' },
-        { value: 2430, name: '推荐' },
-        { value: 342, name: '其他' },
-        { value: 18, name: '社交平台' },
+        { value: 10440, name: "搜索引擎", itemStyle: { color: "#ef4136" } },
+        { value: 4770, name: "直接访问" },
+        { value: 2430, name: "推荐" },
+        { value: 342, name: "其他" },
+        { value: 18, name: "社交平台" },
       ],
       itemStyle: {
         emphasis: {
           shadowBlur: 10,
           shadowOffsetX: 0,
-          shadowColor: 'rgba(0, 0, 0, 0.5)',
+          shadowColor: "rgba(0, 0, 0, 0.5)",
         },
       },
     },
   ],
-}
+};
 
-const echartsDemoJsonStr = JSON.stringify(echartsConf, null, 2)
+// 把图表配置对象转换成 JSON 字符串，并格式化缩进（null, 2 表示 2 空格缩进）
+const echartsDemoJsonStr = JSON.stringify(echartsConf, null, 2);
 
+/**
+ * 默认文档的 Markdown 内容
+ *
+ * 这篇文档向新用户介绍：
+ * 1. Arya 编辑器是什么
+ * 2. 如何使用
+ * 3. Markdown 的各种语法演示（标题、列表、公式、代码、图表等）
+ *
+ * 导出时作为字符串使用
+ */
 export default `# 欢迎使用 \`Arya\` 在线 Markdown 编辑器
 
 [Arya](https://markdown.lovejade.cn/?ref=markdown.lovejade.cn)，是一款基于 \`Vue\`、\`Vditor\`，为未来而构建的在线 Markdown 编辑器；轻量且强大：内置粘贴 HTML 自动转换为 Markdown，支持流程图、甘特图、时序图、任务列表，可导出携带样式的图片、PDF、微信公众号特制的 HTML 等等。
@@ -215,7 +239,7 @@ ${echartsDemoJsonStr}
 
 想要查看更详细的语法说明，可以参考这份 [Markdown 资源列表](https://github.com/nicejade/nice-front-end-tutorial/blob/master/tutorial/markdown-tutorial.md)，涵盖入门至进阶教程，以及资源、平台等信息，能让您对她有更深的认知。
 
-总而言之，不同于其它**所见即所得**的编辑器：你只需使用键盘专注于书写文本内容，就可以生成印刷级的排版格式，省却在键盘和工具栏之间来回切换，调整内容和格式的麻烦。**Markdown 在流畅的书写和印刷级的阅读体验之间找到了平衡。** 目前它已经成为世界上最大的技术分享网站 \`GitHub\` 和 技术问答网站 \`StackOverFlow\` 的御用书写格式，而且越发流行，正在在向各行业渗透。
+总而言之，不同于其它**所见即所得**的编辑器：你只需使用键盘专注于书写文本内容，就可以生成印刷级的排版格式，省却在键盘和工具栏之间来回切换，调整内容和格式的麻烦。**Markdown 在流畅的书写和印刷级的阅读体验之间找到了平衡。** 目前它已经成为世界上最大的技术分享网站 \`GitHub\` 和 技术问答网站 \`StackOverFlow\` 的御用书写格式，而且越发流行，正在向各行业渗透。
 
 最新更新于 2025.04.16
-`
+`;

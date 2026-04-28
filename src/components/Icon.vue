@@ -1,5 +1,7 @@
 <!-- @format -->
 
+<!-- 图标组件：按名称渲染 SVG 图标。 -->
+
 <template>
   <svg class="svg-icon" :class="iconClass">
     <use :xlink:href="'#' + name"></use>
@@ -7,34 +9,31 @@
 </template>
 
 <script>
-import Icons from '@assets/icons'
+import Icons from "@assets/icons";
 
 export default {
-  data() {
-    return {}
-  },
-
   props: {
     name: {
       type: String,
       required: true,
-      default: '',
+      default: "",
       validator(val) {
-        return Icons[val]
-      }
-    }
+        return Icons[val];
+      },
+    },
   },
 
   computed: {
     iconClass() {
-      return 'icon-' + this.name
-    }
-  }
-}
+      return "icon-" + this.name;
+    },
+  },
+};
 </script>
 
 <style lang="less">
-@import './../assets/styles/style.less';
+@import "./../assets/styles/style.less";
+
 .svg-icon {
   width: @font-medium;
   height: @font-medium;

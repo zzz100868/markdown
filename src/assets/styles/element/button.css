@@ -1,3 +1,5 @@
+/* Element 组件样式：button 相关样式规则。 */
+
 .el-button {
   display: inline-block;
   line-height: 1;
@@ -39,7 +41,7 @@
 .el-button::-moz-focus-inner {
   border: 0;
 }
-.el-button [class*='el-icon-'] + span {
+.el-button [class*="el-icon-"] + span {
   margin-left: 5px;
 }
 .el-button.is-plain:focus,
@@ -82,7 +84,7 @@
 }
 .el-button.is-loading:before {
   pointer-events: none;
-  content: '';
+  content: "";
   position: absolute;
   left: -1px;
   top: -1px;
@@ -424,7 +426,7 @@
 .el-button-group::after,
 .el-button-group::before {
   display: table;
-  content: '';
+  content: "";
 }
 .el-button-group::after {
   clear: both;

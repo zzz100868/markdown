@@ -1,3 +1,5 @@
+/* Element 组件样式：tabs 相关样式规则。 */
+
 .el-tabs__header {
   padding: 0;
   position: relative;
@@ -10,10 +12,12 @@
   height: 2px;
   background-color: #000000;
   z-index: 1;
-  -webkit-transition: -webkit-transform 0.3s cubic-bezier(0.645, 0.045, 0.355, 1);
+  -webkit-transition: -webkit-transform 0.3s
+    cubic-bezier(0.645, 0.045, 0.355, 1);
   transition: -webkit-transform 0.3s cubic-bezier(0.645, 0.045, 0.355, 1);
   transition: transform 0.3s cubic-bezier(0.645, 0.045, 0.355, 1);
-  transition: transform 0.3s cubic-bezier(0.645, 0.045, 0.355, 1),
+  transition:
+    transform 0.3s cubic-bezier(0.645, 0.045, 0.355, 1),
     -webkit-transform 0.3s cubic-bezier(0.645, 0.045, 0.355, 1);
   list-style: none;
 }
@@ -45,7 +49,7 @@
   position: relative;
 }
 .el-tabs__nav-wrap::after {
-  content: '';
+  content: "";
   position: absolute;
   left: 0;
   bottom: 0;
@@ -86,7 +90,9 @@
   -webkit-transition: -webkit-transform 0.3s;
   transition: -webkit-transform 0.3s;
   transition: transform 0.3s;
-  transition: transform 0.3s, -webkit-transform 0.3s;
+  transition:
+    transform 0.3s,
+    -webkit-transform 0.3s;
   float: left;
   z-index: 2;
 }
@@ -167,16 +173,24 @@
   -webkit-transform-origin: 100% 50%;
   transform-origin: 100% 50%;
 }
-.el-tabs--card > .el-tabs__header .el-tabs__item.is-active.is-closable .el-icon-close,
-.el-tabs--card > .el-tabs__header .el-tabs__item.is-closable:hover .el-icon-close {
+.el-tabs--card
+  > .el-tabs__header
+  .el-tabs__item.is-active.is-closable
+  .el-icon-close,
+.el-tabs--card
+  > .el-tabs__header
+  .el-tabs__item.is-closable:hover
+  .el-icon-close {
   width: 14px;
 }
 .el-tabs--card > .el-tabs__header .el-tabs__item {
   border-bottom: 1px solid transparent;
   border-left: 1px solid #e4e7ed;
-  -webkit-transition: color 0.3s cubic-bezier(0.645, 0.045, 0.355, 1),
+  -webkit-transition:
+    color 0.3s cubic-bezier(0.645, 0.045, 0.355, 1),
     padding 0.3s cubic-bezier(0.645, 0.045, 0.355, 1);
-  transition: color 0.3s cubic-bezier(0.645, 0.045, 0.355, 1),
+  transition:
+    color 0.3s cubic-bezier(0.645, 0.045, 0.355, 1),
     padding 0.3s cubic-bezier(0.645, 0.045, 0.355, 1);
 }
 .el-tabs--card > .el-tabs__header .el-tabs__item:first-child {
@@ -196,8 +210,12 @@
 .el-tabs--border-card {
   background: #fff;
   border: 1px solid #dcdfe6;
-  -webkit-box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.12), 0 0 6px 0 rgba(0, 0, 0, 0.04);
-  box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.12), 0 0 6px 0 rgba(0, 0, 0, 0.04);
+  -webkit-box-shadow:
+    0 2px 4px 0 rgba(0, 0, 0, 0.12),
+    0 0 6px 0 rgba(0, 0, 0, 0.04);
+  box-shadow:
+    0 2px 4px 0 rgba(0, 0, 0, 0.12),
+    0 0 6px 0 rgba(0, 0, 0, 0.04);
 }
 .el-tabs--border-card > .el-tabs__content {
   padding: 15px;
@@ -220,7 +238,9 @@
   border-right-color: #dcdfe6;
   border-left-color: #dcdfe6;
 }
-.el-tabs--border-card > .el-tabs__header .el-tabs__item:not(.is-disabled):hover {
+.el-tabs--border-card
+  > .el-tabs__header
+  .el-tabs__item:not(.is-disabled):hover {
   color: #000000;
 }
 .el-tabs--border-card > .el-tabs__header .el-tabs__item.is-disabled {

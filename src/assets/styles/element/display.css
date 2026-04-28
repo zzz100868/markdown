@@ -1,3 +1,5 @@
+/* Element 组件样式：display 相关样式规则。 */
+
 @media only screen and (max-width: 767px) {
   .hidden-xs-only {
     display: none !important;

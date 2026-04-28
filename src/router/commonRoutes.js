@@ -1,41 +1,32 @@
 /** @format */
 
-import Frame from '@pages/partials/Frame'
-import NotFound from '@pages/partials/NotFound'
+// commonRoutes.js 定义全站通用路由。
+// 包含首页、关于页、首页别名以及兜底 404 页面。
+
+import Frame from "@pages/partials/Frame.vue";
+import NotFound from "@pages/partials/NotFound.vue";
 
 export default [
   {
-    path: '/',
-    meta: {
-      title: window.$appTitle
-    },
-    component: resolve => require(['@pages/Main'], resolve)
+    path: "/",
+    component: () => import("@pages/Main.vue"),
   },
   {
-    path: '/about-arya',
-    meta: {
-      title: `关于 | ${window.$appTitle}`
-    },
+    path: "/about-arya",
     component: Frame,
     children: [
       {
-        path: '/',
-        meta: {
-          title: `关于 | ${window.$appTitle}`
-        },
-        component: resolve => require(['@pages/About'], resolve)
-      }
-    ]
+        path: "",
+        component: () => import("@pages/About.vue"),
+      },
+    ],
   },
   {
-    path: '/index',
-    redirect: '/'
+    path: "/index",
+    redirect: "/",
   },
   {
-    path: '*',
-    meta: {
-      title: 'Page Not Found'
-    },
-    component: NotFound
-  }
-]
+    path: "/:pathMatch(.*)*",
+    component: NotFound,
+  },
+];

@@ -1,3 +1,5 @@
+/* Element 组件样式：col 相关样式规则。 */
+
 .el-col-pull-0,
 .el-col-pull-1,
 .el-col-pull-10,
@@ -49,7 +51,7 @@
 .el-col-push-9 {
   position: relative;
 }
-[class*='el-col-'] {
+[class*="el-col-"] {
   float: left;
   -webkit-box-sizing: border-box;
   box-sizing: border-box;

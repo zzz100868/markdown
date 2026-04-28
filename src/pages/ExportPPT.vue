@@ -1,13 +1,18 @@
 <!-- @format -->
 
+<!-- PPT 导出页：将 Markdown 内容导出为演示文稿。 -->
+
 <template>
+  <!-- Reveal.js 要求的 DOM 结构：.reveal > .slides > section -->
   <div class="export-ppt">
     <div class="reveal">
       <div class="slides">
-        <section data-markdown data-separator="---" data-separator-vertical="--">
-          <section data-template>
-            {{ savedMdContent }}
-          </section>
+        <section
+          data-markdown
+          :data-separator="slideSeparator"
+          :data-separator-vertical="verticalSlideSeparator"
+        >
+          <textarea ref="slideTemplate" data-template></textarea>
         </section>
       </div>
     </div>
@@ -15,77 +20,100 @@
 </template>
 
 <script>
-import Reveal from 'reveal.js/js/reveal'
-import 'reveal.js/css/reset.css'
-import 'reveal.js/css/reveal.css'
-import 'reveal.js/css/theme/beige.css'
-import { updateHtmlStyle } from '@helper/utils'
-import { getActiveDocId, getDocContent } from '@helper/storage'
+import Reveal from "reveal.js";
+import "reveal.js/css/reset.css";
+import "reveal.js/css/reveal.css";
+import "reveal.js/css/theme/beige.css";
+import "reveal.js/lib/css/zenburn.css";
+import markedUrl from "reveal.js/plugin/markdown/marked.js?url";
+import markdownUrl from "reveal.js/plugin/markdown/markdown.js?url";
+import highlightUrl from "reveal.js/plugin/highlight/highlight.js?url";
+import notesUrl from "reveal.js/plugin/notes/notes.js?url";
+import searchUrl from "reveal.js/plugin/search/search.js?url";
+import zoomUrl from "reveal.js/plugin/zoom-js/zoom.js?url";
+import { updateHtmlStyle } from "@helper/utils";
+import { useDocStore } from "@/stores/docStore";
 
 export default {
-  name: 'export-ppt',
+  name: "export-ppt",
 
-  data() {
-    return {
-      savedMdContent: '',
-    }
+  setup() {
+    const store = useDocStore();
+    return { store };
   },
 
-  created() {
-    updateHtmlStyle()
-    this.savedMdContent = getDocContent(getActiveDocId()) || ''
+  data() {
+    const activeDoc = localStorage.getItem("arya_active_doc");
+    const content = activeDoc
+      ? localStorage.getItem("arya_doc_" + activeDoc) || ""
+      : "";
+    return {
+      savedMdContent: content,
+      slideSeparator: "^\\r?\\n---\\r?\\n$",
+      verticalSlideSeparator: "^\\r?\\n--\\r?\\n$",
+    };
+  },
+
+  async mounted() {
+    updateHtmlStyle();
+    await this.store.init();
+    this.savedMdContent = this.store.currentContent || "";
+    const template = this.$refs.slideTemplate;
+    if (template) {
+      template.textContent = this.savedMdContent;
+    }
+    this.initReveal();
   },
 
   components: {},
 
-  mounted() {
-    this.initReveal()
-  },
-
   methods: {
     initReveal() {
-      window.Reveal = Reveal
-      const revealSourcePath = `https://cdn.jsdelivr.net/npm/reveal.js@3.8.0`
+      window.Reveal = Reveal;
       Reveal.initialize({
         controls: true,
         progress: true,
         center: true,
         hash: true,
-        transition: 'slide',
-        display: 'block',
+        transition: "slide",
+        display: "block",
         dependencies: [
           {
-            src: `${revealSourcePath}/plugin/markdown/marked.js`,
+            src: markedUrl,
             condition: function () {
-              return !!document.querySelector('[data-markdown]')
+              return !!document.querySelector("[data-markdown]");
             },
           },
           {
-            src: `${revealSourcePath}/plugin/markdown/markdown.js`,
+            src: markdownUrl,
             condition: function () {
-              return !!document.querySelector('[data-markdown]')
+              return !!document.querySelector("[data-markdown]");
             },
           },
-          { src: `${revealSourcePath}/plugin/highlight/highlight.js`, async: true },
-          { src: `${revealSourcePath}/plugin/search/search.js`, async: true },
-          { src: `${revealSourcePath}/plugin/zoom-js/zoom.js`, async: true },
-          { src: `${revealSourcePath}/plugin/notes/notes.js`, async: true },
+          {
+            src: highlightUrl,
+            async: true,
+          },
+          { src: searchUrl, async: true },
+          { src: zoomUrl, async: true },
+          { src: notesUrl, async: true },
         ],
-      })
+      });
     },
-    /* ---------------------Callback Event--------------------- */
   },
-}
+};
 </script>
 
 <style lang="less">
+@import "./../assets/styles/style.less";
+
 .export-ppt {
   width: 100%;
 
   .reveal {
     font-size: 2em;
-    background-color: #ffffff;
-    height: calc(100vh - 60px);
+    background-color: @bg-page;
+    height: calc(100vh - 56px);
 
     h1 {
       font-size: 2em !important;

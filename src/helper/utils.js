@@ -1,57 +1,70 @@
 /** @format */
 
-if (typeof String.prototype.startsWith !== 'function') {
+// utils.js 收纳跨页面复用的小工具函数。
+// 包括时间戳、导出文件名、HTML 滚动恢复、隐藏 Vditor 编辑区等。
+
+// startsWith 兼容性补丁（IE 不支持）
+if (typeof String.prototype.startsWith !== "function") {
   Window.String.prototype.startsWith = function (prefix) {
-    return this.slice(0, prefix.length) === prefix
-  }
+    return this.slice(0, prefix.length) === prefix;
+  };
 }
 
+// 数字补零：个位数前面加 0
 export const makeUpZero = (num = 0) => {
-  return num < 10 ? `0${num}` : num
-}
+  return num < 10 ? `0${num}` : `${num}`;
+};
 
+// 获取当前时间戳字符串，格式：YY-MM-DD-HHMMSS
 export const getTimestamp = () => {
-  const date = new Date()
-  const y = `${date.getFullYear()}`.replace('20', '')
-  let mo = makeUpZero(date.getMonth() + 1)
-  const d = makeUpZero(date.getDate())
-  const h = makeUpZero(date.getHours())
-  const m = makeUpZero(date.getMinutes())
-  const s = makeUpZero(date.getSeconds())
-  return `${y}-${mo}-${d}-${h}${m}${s}`
-}
+  const date = new Date();
+  const y = `${date.getFullYear()}`.replace("20", "");
+  let mo = makeUpZero(date.getMonth() + 1);
+  const d = makeUpZero(date.getDate());
+  const h = makeUpZero(date.getHours());
+  const m = makeUpZero(date.getMinutes());
+  const s = makeUpZero(date.getSeconds());
+  return `${y}-${mo}-${d}-${h}${m}${s}`;
+};
 
+// 生成导出文件名，格式：arya-YY-MM-DD-HHMMSS.ext
 export const getExportFileName = () => {
-  const type = location.pathname.split('/').pop()
-  const timestamp = getTimestamp()
-  const filename = `arya-${timestamp}.${type}`
-  return filename
-}
+  const type = location.pathname.split("/").pop();
+  const timestamp = getTimestamp();
+  const filename = `arya-${timestamp}.${type}`;
+  return filename;
+};
 
+// 恢复 HTML 滚动样式（导出页面可能限制了滚动）
 export const updateHtmlStyle = () => {
-  const htmlNode = document.querySelector('html')
-  htmlNode.style.overflow = 'auto'
-  htmlNode.style.height = 'auto'
-}
+  const htmlNode = document.querySelector("html");
+  htmlNode.style.overflow = "auto";
+  htmlNode.style.height = "auto";
+};
 
+// 隐藏 Vditor 编辑区（预览/导出页面只需要显示预览）
+// 通过 MutationObserver 监听 DOM 变化，发现编辑区就隐藏
 export const hideVditorTextarea = () => {
-  const exportVditorNode = document.getElementById('khaleesi')
-  const option = {
-    childList: true, // 子节点的变动（新增、删除或者更改）
-    attributes: true, // 属性的变动
-    characterData: true, // 节点内容或节点文本的变动
+  const exportVditorNode = document.getElementById("khaleesi");
 
-    subtree: true, // 是否将观察器应用于该节点的所有后代节点
-    attributeFilter: ['class', 'style'], // 观察特定属性
-    attributeOldValue: true, // 观察 attributes 变动时，是否需要记录变动前的属性值
-    characterDataOldValue: true, // 观察 characterData 变动，是否需要记录变动前的值
-  }
+  const option = {
+    childList: true,
+    attributes: true,
+    characterData: true,
+    subtree: true,
+    attributeFilter: ["class", "style"],
+    attributeOldValue: true,
+    characterDataOldValue: true,
+  };
+
   const mutationObserver = new MutationObserver(() => {
-    const vditorTextarea = document.getElementsByClassName('vditor-textarea')
+    const vditorTextarea = document.getElementsByClassName("vditor-textarea");
     if (vditorTextarea && vditorTextarea[0]) {
-      vditorTextarea[0].style.display = 'none'
-      mutationObserver.disconnect()
+      vditorTextarea[0].style.display = "none";
+      // 已经隐藏，断开监听以节省性能
+      mutationObserver.disconnect();
     }
-  })
-  mutationObserver.observe(exportVditorNode, option)
-}
+  });
+
+  mutationObserver.observe(exportVditorNode, option);
+};

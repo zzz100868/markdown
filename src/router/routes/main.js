@@ -1,43 +1,35 @@
 /** @format */
 
-import Frame from '@pages/partials/Frame'
+// routes/main.js 定义核心业务路由。
+// 目前主要是各种导出/预览页面，它们共享 Frame 外层布局。
+
+import Frame from "@pages/partials/Frame.vue";
 
 export default [
   {
-    path: '/export',
+    path: "/export",
     component: Frame,
-    meta: {
-      title: window.$appTitle,
-    },
     children: [
       {
-        path: 'png',
-        meta: {
-          title: `导出 PNG | ${window.$appTitle}`,
-        },
-        component: (resolve) => require(['@pages/ExportImage'], resolve),
+        path: "png",
+        component: () => import("@pages/ExportImage.vue"),
       },
       {
-        path: 'pdf',
-        meta: {
-          title: `导出 PDF | ${window.$appTitle}`,
-        },
-        component: (resolve) => require(['@pages/ExportPdf'], resolve),
+        path: "pdf",
+        component: () => import("@pages/ExportPdf.vue"),
       },
       {
-        path: 'docx',
-        meta: {
-          title: `导出 Word | ${window.$appTitle}`,
-        },
-        component: (resolve) => require(['@pages/ExportDocx'], resolve),
+        path: "docx",
+        component: () => import("@pages/ExportDocx.vue"),
       },
       {
-        path: 'ppt',
-        meta: {
-          title: `PPT 预览 | ${window.$appTitle}`,
-        },
-        component: (resolve) => require(['@pages/ExportPPT'], resolve),
+        path: "ppt",
+        component: () => import("@pages/ExportPPT.vue"),
+      },
+      {
+        path: "html",
+        component: () => import("@pages/ExportHtml.vue"),
       },
     ],
   },
-]
+];
